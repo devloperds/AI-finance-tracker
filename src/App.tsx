@@ -1,12 +1,11 @@
-import './App.css'
+import styles from "./App.module.css";
 
 function App() {
-
   return (
-      <h1>
-        Finance Tracker
-      </h1>
-  )
+    <div>
+      <h1 className={styles.heading}>Finance Tracker</h1>
+    </div>
+  );
 }
 
-export default App
+export default App;
