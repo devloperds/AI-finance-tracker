@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import { useTransactionsStore } from "../../store/transactionsStore";
 import { useAccountsStore } from "../../store/accountsStore";
 import { useCategoriesStore } from "../../store/categoriesStore";
-// import TimeSeriesChart, { type TimePoint } from "../charts/TimeSeriesChart";
-// import CategoryChart, { type CategoryPoint } from "../charts/CategoryChart";
-// import { groupByCategory } from "../../utils/aggregations";
+import CategoryChart, { type CategoryPoint } from "../charts/CategoryChart";
+import { groupByMonth, groupByCategory } from "../../utils/aggregations";
 import styles from "./Dashboard.module.css";
-
-// type TimePoint = { time: string; value: number };
-// type CategoryPoint = { category: string; value: number };
+import TimeSeriesChart, { type TimePoint } from "../charts/TimeSeriesChart";
 
 const Dashboard = () => {
   const [isHydrated, setIsHydrated] = useState(() => {
@@ -58,7 +55,7 @@ const Dashboard = () => {
   const getActualTransactions = useTransactionsStore((s) => s.getActualTransactions);
   const getProjectedTransactions = useTransactionsStore((s) => s.getProjectedTransactions);
   const currencies = useAccountsStore((s) => s.currencies);
-  // const getCategoryById = useCategoriesStore((s) => s.getCategoryById);
+  const getCategoryById = useCategoriesStore((s) => s.getCategoryById);
 
   const [selectedCurrency, setSelectedCurrency] = useState<string>(() => {
     const actual = getActualTransactions();
@@ -82,56 +79,56 @@ const Dashboard = () => {
 
   const actualExpenses = actualTxs.filter((t) => t.type === "expense");
   const actualIncome = actualTxs.filter((t) => t.type === "income");
-  // const projectedExpenses = projectedTxs.filter((t) => t.type === "expense");
-  // const projectedIncome = projectedTxs.filter((t) => t.type === "income");
+  const projectedExpenses = projectedTxs.filter((t) => t.type === "expense");
+  const projectedIncome = projectedTxs.filter((t) => t.type === "income");
 
-  // const monthlyData = groupByMonth([
-  //   ...actualExpenses,
-  //   ...projectedExpenses,
-  //   ...actualIncome,
-  //   ...projectedIncome,
-  // ]);
+  const monthlyData = groupByMonth([
+    ...actualExpenses,
+    ...projectedExpenses,
+    ...actualIncome,
+    ...projectedIncome,
+  ]);
 
-  // const expensesActualData: TimePoint[] = monthlyData.map((m) => ({
-  //   time: m.month,
-  //   value: m.actualExpense,
-  // }));
-  // const expensesProjectedData: TimePoint[] = monthlyData.map((m) => ({
-  //   time: m.month,
-  //   value: m.projectedExpense,
-  // }));
-  // const incomeActualData: TimePoint[] = monthlyData.map((m) => ({
-  //   time: m.month,
-  //   value: m.actualIncome,
-  // }));
-  // const incomeProjectedData: TimePoint[] = monthlyData.map((m) => ({
-  //   time: m.month,
-  //   value: m.projectedIncome,
-  // }));
+  const expensesActualData: TimePoint[] = monthlyData.map((m) => ({
+    time: m.month,
+    value: m.actualExpense,
+  }));
+  const expensesProjectedData: TimePoint[] = monthlyData.map((m) => ({
+    time: m.month,
+    value: m.projectedExpense,
+  }));
+  const incomeActualData: TimePoint[] = monthlyData.map((m) => ({
+    time: m.month,
+    value: m.actualIncome,
+  }));
+  const incomeProjectedData: TimePoint[] = monthlyData.map((m) => ({
+    time: m.month,
+    value: m.projectedIncome,
+  }));
 
-  // const categoryData = groupByCategory([...actualExpenses, ...projectedExpenses], {
-  //   type: "expense",
-  // });
+  const categoryData = groupByCategory([...actualExpenses, ...projectedExpenses], {
+    type: "expense",
+  });
 
-  // const getCategoryName = (categoryId: string): string => {
-  //   const category = getCategoryById(categoryId);
-  //   if (!category) return categoryId;
-  //   if (category.parentId) {
-  //     const parent = getCategoryById(category.parentId);
-  //     return parent ? `${parent.name} / ${category.name}` : category.name;
-  //   }
-  //   return category.name;
-  // };
+  const getCategoryName = (categoryId: string): string => {
+    const category = getCategoryById(categoryId);
+    if (!category) return categoryId;
+    if (category.parentId) {
+      const parent = getCategoryById(category.parentId);
+      return parent ? `${parent.name} / ${category.name}` : category.name;
+    }
+    return category.name;
+  };
 
-  // const expenseCategoryData: CategoryPoint[] = categoryData.map((c) => ({
-  //   category: getCategoryName(c.category),
-  //   value: c.actualAmount,
-  // }));
+  const expenseCategoryData: CategoryPoint[] = categoryData.map((c) => ({
+    category: getCategoryName(c.category),
+    value: c.actualAmount,
+  }));
 
-  // const expenseCategoryProjectedData: CategoryPoint[] = categoryData.map((c) => ({
-  //   category: getCategoryName(c.category),
-  //   value: c.projectedAmount,
-  // }));
+  const expenseCategoryProjectedData: CategoryPoint[] = categoryData.map((c) => ({
+    category: getCategoryName(c.category),
+    value: c.projectedAmount,
+  }));
 
   const totalIncome = actualIncome.reduce((sum, t) => sum + t.amount, 0);
   const totalExpenses = actualExpenses.reduce((sum, t) => sum + t.amount, 0);
@@ -209,24 +206,24 @@ const Dashboard = () => {
           <h3 className={styles.chartTitle}>Monthly Trends</h3>
           <p className={styles.chartSubtitle}>Income and expenses over time</p>
           <div className={styles.chartContainer}>
-            {/* <TimeSeriesChart
+            <TimeSeriesChart
               height={300}
               expensesActual={expensesActualData}
               expensesProjected={expensesProjectedData}
               incomeActual={incomeActualData}
               incomeProjected={incomeProjectedData}
-            /> */}
+            />
           </div>
         </div>
         <div className={styles.chartCard}>
           <h3 className={styles.chartTitle}>Expense Categories</h3>
           <p className={styles.chartSubtitle}>Breakdown by category</p>
           <div className={styles.chartContainer}>
-            {/* <CategoryChart
+            <CategoryChart
               height={300}
               dataActual={expenseCategoryData}
               dataProjected={expenseCategoryProjectedData}
-            /> */}
+            />
           </div>
         </div>
       </div>
