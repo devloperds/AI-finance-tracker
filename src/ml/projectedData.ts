@@ -424,7 +424,7 @@ export function loadProjectionsFromStorage(): ProjectionResult | null {
   }
 }
 
-export async function generateAndSaveProjections(currency = "GBP"): Promise<ProjectionResult> {
+export async function generateAndSaveProjections(currency = "INR"): Promise<ProjectionResult> {
   console.debug(`[Projections] Starting generation for currency: ${currency}`);
 
   // STEP 1: Load CSV data
@@ -512,7 +512,7 @@ export type HistoricalYearlyData = {
   expenses: number;
 };
 
-export async function loadHistoricalYearlyData(currency = "GBP"): Promise<HistoricalYearlyData[]> {
+export async function loadHistoricalYearlyData(currency = "INR"): Promise<HistoricalYearlyData[]> {
   try {
     const transactions = await loadCSVFile("seedTransactions_1year_13000_labeled.csv");
     const filtered = filterByCurrency(transactions, currency);

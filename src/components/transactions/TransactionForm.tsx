@@ -75,22 +75,34 @@ const TransactionForm = ({ editingTransaction, onCancel, onSuccess }: Props) => 
       const catId = await suggestCategory(formData.description);
 
       if (catId === "") {
-        alert("No suggestion available. Try a more descriptive text.");
+        alert(
+          "No suggestion available. The AI model may still be training. Please try again in a moment.",
+        );
         return;
       }
 
       const cat = getCategoryById(catId);
       if (!cat) {
-        setFormData((prev) => ({ ...prev, categoryId: catId }));
+        // Category ID returned but not found in store - set type based on prefix
+        if (catId.startsWith("exp-")) {
+          setFormData((prev) => ({ ...prev, categoryId: catId, type: "expense" }));
+        } else if (catId.startsWith("inc-")) {
+          setFormData((prev) => ({ ...prev, categoryId: catId, type: "income" }));
+        } else {
+          setFormData((prev) => ({ ...prev, categoryId: catId }));
+        }
         return;
       }
 
+      // Set the transaction type based on category
+      const newType = cat.id.startsWith("inc-") ? "income" : "expense";
+
       if (cat.parentId && cat.parentId !== "") {
         setSelectedParentCategory(cat.parentId);
-        setFormData((prev) => ({ ...prev, categoryId: cat.id }));
+        setFormData((prev) => ({ ...prev, categoryId: cat.id, type: newType }));
       } else {
         setSelectedParentCategory(cat.id);
-        setFormData((prev) => ({ ...prev, categoryId: cat.id }));
+        setFormData((prev) => ({ ...prev, categoryId: cat.id, type: newType }));
       }
     } catch (e) {
       console.error(e);
@@ -245,7 +257,7 @@ const TransactionForm = ({ editingTransaction, onCancel, onSuccess }: Props) => 
           value={formData.description}
           onChange={handleChange}
           required
-          placeholder="e.g., Grocery shopping"
+          placeholder="e.g., Dmart, Osiamart"
           className={styles.input}
         />
       </div>

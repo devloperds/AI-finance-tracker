@@ -1,6 +1,10 @@
 merchantId,merchantName,mcc,defaultCategory,homeCountry,keywords,recurringLikelihood,typicalEssentiality
-m_tesco,Tesco,5411,groceries,UK,"tesco,tesco stores,tesco plc,clubcard",0.0,essential
-m_sainsbury,Sainsbury's,5411,groceries,UK,"sainsbury,sainsburys,nectar",0.0,essential
+m_dmart,DMart,5411,groceries,IND,"dmart,dmart stores,dmart plc,dmart card",0.0,essential
+m_osiamart,OsiaMart,5411,groceries,IND,"osiamart,osiamart stores,osia hypermart",0.0,essential
+m_reliance_smart,Reliance Smart,5411,groceries,IND,"reliance smart,reliance fresh",0.0,essential
+m_bigbasket,BigBasket,5411,groceries,IND,"bigbasket,big basket",0.0,essential
+m_blinkit,Blinkit,5411,groceries,IND,"blinkit,grofers",0.0,essential
+m_zepto,Zepto,5411,groceries,IND,"zepto",0.0,essential
 m_asda,ASDA,5411,groceries,UK,"asda,asda superstore",0.0,essential
 m_aldi,ALDI,5411,groceries,DE,"aldi,aldi stores",0.0,essential
 m_lidl,Lidl,5411,groceries,DE,"lidl,lidl uk",0.0,essential
@@ -15,6 +19,10 @@ m_ikea,IKEA,5712,shopping,SE,"ikea,ikea uk",0.0,discretionary
 m_primark,Primark,5651,shopping,IE,"primark,penneys",0.0,discretionary
 m_hm,H&M,5651,shopping,SE,"h&m,hm",0.0,discretionary
 m_zara,Zara,5651,shopping,ES,"zara,inditex",0.0,discretionary
+m_flipkart,Flipkart,5311,shopping,IND,"flipkart,flipkart internet",0.0,discretionary
+m_myntra,Myntra,5651,shopping,IND,"myntra,myntra designs",0.0,discretionary
+m_ajio,Ajio,5651,shopping,IND,"ajio,reliance retail",0.0,discretionary
+m_nykaa,Nykaa,5912,shopping,IND,"nykaa,fsn e-commerce",0.0,discretionary
 m_starbucks,Starbucks,5814,coffee,US,"starbucks,sbucks",0.0,discretionary
 m_costa,Costa Coffee,5814,coffee,UK,"costa,costa coffee",0.0,discretionary
 m_pret,Pret A Manger,5814,lunch,UK,"pret,pret a manger",0.0,discretionary
@@ -25,10 +33,16 @@ m_wagamama,Wagamama,5812,dining,UK,wagamama,0.0,discretionary
 m_nandos,Nando's,5812,dining,UK,"nandos,nando's",0.0,discretionary
 m_deliveroo,Deliveroo,5814,dining,UK,deliveroo,0.0,discretionary
 m_ubereats,Uber Eats,5814,dining,US,"uber eats,ubereats",0.0,discretionary
+m_zomato,Zomato,5814,dining,IND,"zomato,zomato media",0.0,discretionary
+m_swiggy,Swiggy,5814,dining,IND,"swiggy,bundl technologies",0.0,discretionary
+m_dominos_ind,Domino's Pizza,5814,dining,IND,"dominos,jubilant foodworks",0.0,discretionary
 m_uber,Uber,4121,transport,US,uber,0.0,essential
 m_bolt,Bolt,4121,transport,EE,bolt,0.0,essential
 m_tfl,Transport for London,4111,transport,UK,"tfl,transport for london,oyster",0.0,essential
 m_nationalrail,National Rail,4112,transport,UK,national rail,0.0,essential
+m_ola,Ola,4121,transport,IND,"ola,ola cabs,ani technologies",0.0,essential
+m_irctc,IRCTC,4112,transport,IND,"irctc,indian railway",0.0,essential
+m_indigo,IndiGo,4511,travel,IND,"indigo,interglobe aviation",0.0,discretionary
 m_trainline,Trainline,4112,transport,UK,trainline,0.0,essential
 m_shell,Shell,5541,transport,NL,shell,0.0,essential
 m_bp,BP,5541,transport,UK,"bp,british petroleum",0.0,essential
@@ -43,6 +57,11 @@ m_thameswater,Thames Water,4900,utilities,UK,thames water,1.0,essential
 m_virginmedia,Virgin Media,4814,internet,UK,virgin media,1.0,essential
 m_bt,BT,4814,internet,UK,"bt,british telecom",1.0,essential
 m_sky,Sky,4899,subscriptions,UK,sky,1.0,discretionary
+m_jio,Jio,4814,mobile,IND,"jio,reliance jio",1.0,essential
+m_airtel,Airtel,4814,mobile,IND,"airtel,bharti airtel",1.0,essential
+m_vi,Vi,4814,mobile,IND,"vi,vodafone idea",1.0,essential
+m_bses,BSES,4900,utilities,IND,"bses,bses rajdhani,bses yamuna",1.0,essential
+m_adani_electricity,Adani Electricity,4900,utilities,IND,"adani electricity,adani power",1.0,essential
 m_vodafone,Vodafone,4814,mobile,UK,vodafone,1.0,essential
 m_ee,EE,4814,mobile,UK,ee,1.0,essential
 m_o2,O2,4814,mobile,UK,"o2,telefonica",1.0,essential
@@ -52,6 +71,7 @@ m_disney,Disney+,4899,subscriptions,US,"disney plus,disney+",1.0,discretionary
 m_youtube,YouTube Premium,4899,subscriptions,US,"youtube premium,youtube",1.0,discretionary
 m_gym,Gym Membership,7997,subscriptions,UK,"gym,puregym,the gym group,fitness",1.0,discretionary
 m_adobe,Adobe,5734,subscriptions,US,"adobe,creative cloud",1.0,discretionary
+m_apollo_pharmacy,Apollo Pharmacy,5912,health,IND,"apollo pharmacy,apollo hospitals",0.0,essential
 m_microsoft,Microsoft,5734,subscriptions,US,"microsoft,msft,office 365",1.0,discretionary
 m_google,Google,5734,subscriptions,US,"google,google one,google services",1.0,discretionary
 m_boots,Boots,5912,health,UK,boots,0.0,essential

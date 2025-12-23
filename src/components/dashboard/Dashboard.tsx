@@ -68,23 +68,15 @@ const Dashboard = () => {
   const currencies = useAccountsStore((s) => s.currencies);
   const getCategoryById = useCategoriesStore((s) => s.getCategoryById);
 
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(() => {
-    const actual = getActualTransactions();
-    if (actual.length > 0) return actual[0].currencyId;
-    const projected = getProjectedTransactions();
-    if (projected.length > 0) return projected[0].currencyId;
-    if (currencies.length > 0 && currencies[0].id !== "") return currencies[0].id;
-    return "gbp";
-  });
+  const [selectedCurrency, setSelectedCurrency] = useState<string>("inr");
 
   useEffect(() => {
     if (selectedCurrency === "" && currencies.length > 0) {
-      const id = currencies[0].id;
-      void Promise.resolve().then(() => setSelectedCurrency(id));
+      setSelectedCurrency("inr");
     }
   }, [currencies, selectedCurrency]);
 
-  const activeCurrencyId = selectedCurrency !== "" ? selectedCurrency : "gbp";
+  const activeCurrencyId = selectedCurrency !== "" ? selectedCurrency : "inr";
   const actualTxs = getActualTransactions().filter((t) => t.currencyId === activeCurrencyId);
   const projectedTxs = getProjectedTransactions().filter((t) => t.currencyId === activeCurrencyId);
 
@@ -197,8 +189,8 @@ const Dashboard = () => {
   const netBalance = totalIncome - totalExpenses;
 
   const currency =
-    currencies.find((c) => c.id === activeCurrencyId) || currencies.find((c) => c.id === "gbp");
-  const currencySymbol = currency?.symbol ?? "£";
+    currencies.find((c) => c.id === activeCurrencyId) || currencies.find((c) => c.id === "inr");
+  const currencySymbol = currency?.symbol ?? "₹";
   const formatAmount = (amount: number) => `${currencySymbol}${amount.toFixed(2)}`;
 
   if (!isHydrated) {

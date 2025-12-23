@@ -2,8 +2,8 @@ import * as tf from "@tensorflow/tfjs";
 import { seedTransactionsAll } from "../data/seedData";
 
 export const DEMO_LABELS: string[] = [
-  "exp-groceries-tesco",
-  "exp-groceries-sainsburys",
+  "exp-groceries-dmart",
+  "exp-groceries-osiamart",
   "exp-subscriptions-ai",
   "exp-subscriptions-entertainment",
   "exp-rent",
@@ -19,9 +19,9 @@ export const DEMO_VOCAB: string[] = [
   "salary",
   "bonus",
   "rent",
-  "tesco",
+  "dmart",
   "asda",
-  "sainsbury",
+  "osiamart",
   "grocery",
   "groceries",
   "netflix",
@@ -47,8 +47,8 @@ export const DEMO_VOCAB: string[] = [
 
 const VOCAB_LENGTH = DEMO_VOCAB.length;
 
-// input: Groceries at tesco, £45.50
-// output: ["groceries", "at", "tesco", "45", "50"]
+// input: Groceries at dmart, £45.50
+// output: ["groceries", "at", "dmart", "45", "50"]
 export function preprocess(text: string): string[] {
   return text
     .toLowerCase()
@@ -59,7 +59,7 @@ export function preprocess(text: string): string[] {
     .filter(Boolean);
 }
 
-// input: ["groceries", "at", "tesco", "45", "50"]
+// input: ["groceries", "at", "dmart", "45", "50"]
 // output: [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 function toBow(tokens: string[]): Float32Array {
   const vec = new Float32Array(VOCAB_LENGTH);
@@ -101,7 +101,7 @@ export async function generateAndSaveDemoModelToIndexedDB(): Promise<void> {
   console.debug("[DEMO MODEL] Dataset sizes: ", { total, trainSize, testSize });
 
   const xsTrain = xs.slice(0, trainSize); // [[0, 1, 0, 1, 0], [1, 0, 0, 0, 1]]
-  const ysTrain = ys.slice(0, trainSize); // [7, 0] // ["inc-bonus", "exp-groceries-tesco"]
+  const ysTrain = ys.slice(0, trainSize); // [7, 0] // ["inc-bonus", "exp-groceries-dmart"]
   const xsTest = xs.slice(trainSize);
   const ysTest = ys.slice(trainSize);
 

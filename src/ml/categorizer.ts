@@ -1,5 +1,9 @@
 import * as tf from "@tensorflow/tfjs";
-import { DEMO_LABELS, DEMO_VOCAB } from "./generateAndSaveDemoModelToIndexedDB";
+import {
+  DEMO_LABELS,
+  DEMO_VOCAB,
+  generateAndSaveDemoModelToIndexedDB,
+} from "./generateAndSaveDemoModelToIndexedDB";
 
 const VOCAB_LENGTH = DEMO_VOCAB.length;
 
@@ -27,7 +31,7 @@ async function loadModel(): Promise<tf.LayersModel | null> {
   try {
     return await tf.loadLayersModel("indexeddb://transaction-categorizer");
   } catch {
-    console.warn("No ML model found in IndexedDB");
+    console.warn("No ML model found in IndexedDB, will attempt to train...");
     return null;
   }
 }
@@ -35,8 +39,18 @@ async function loadModel(): Promise<tf.LayersModel | null> {
 export async function suggestCategory(description: string): Promise<string> {
   if (!description || description.trim().length === 0) return "";
 
-  const model = await loadModel();
-  if (!model) return "";
+  let model = await loadModel();
+
+  // Auto-train the model if it doesn't exist
+  if (!model) {
+    console.log("Training ML model for the first time...");
+    await generateAndSaveDemoModelToIndexedDB();
+    model = await loadModel();
+    if (!model) {
+      console.error("Failed to load model even after training");
+      return "";
+    }
+  }
 
   const tokens = preprocess(description);
   const bow = toBow(tokens);
@@ -58,8 +72,10 @@ export async function suggestCategory(description: string): Promise<string> {
     pred.dispose();
     input.dispose();
 
+    console.log(`Suggested category: ${DEMO_LABELS[bestIdx]} with confidence: ${bestVal}`);
     return DEMO_LABELS[bestIdx] ?? "";
-  } catch {
+  } catch (error) {
+    console.error("Prediction failed:", error);
     input.dispose();
     return "";
   }
