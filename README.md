@@ -11,7 +11,7 @@ A simple finance tracker to track expenses.
 
 ```bash
 git clone https://github.com/devloperds/AI-finance-tracker.git
-cd finance-tracker-ghw
+cd finance-tracker
 
 # If using mine, then
 git clone 
