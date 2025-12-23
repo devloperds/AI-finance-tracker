@@ -1,6 +1,6 @@
-# Finance Tracker (GHW)
+# Finance Tracker
 
-A simple finance tracker built during MLH GHW AI/ML Week.
+A simple finance tracker to track expenses.
 
 ## Requirements
 
@@ -10,12 +10,12 @@ A simple finance tracker built during MLH GHW AI/ML Week.
 ## Get the code
 
 ```bash
-git clone https://github.com/<your-username>/finance-tracker-ghw.git # fork and replace <your-username>
+git clone https://github.com/devloperds/AI-finance-tracker.git
 cd finance-tracker-ghw
 
 # If using mine, then
-git clone https://github.com/utk09-NCL/finance-tracker-ghw.git
-cd finance-tracker-ghw
+git clone 
+cd AI-finance-tracker
 ```
 
 ## Install dependencies
