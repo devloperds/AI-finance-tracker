@@ -1,0 +1,276 @@
+.goals {
+  padding: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.addButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition-base);
+}
+
+.addButton:hover {
+  background: var(--primary-color-dark);
+}
+
+.form {
+  background: var(--background-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.formGroup label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: var(--background-primary);
+  color: var(--text-color);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.submitButton {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: var(--success-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: var(--font-size-base);
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.goalsList {
+  display: grid;
+  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.goalCard {
+  background: var(--background-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border-left: 4px solid var(--primary-color);
+}
+
+.goalCard.completed {
+  border-left-color: var(--success-color);
+  background: linear-gradient(135deg, var(--background-primary) 0%, rgba(16, 185, 129, 0.05) 100%);
+}
+
+.goalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.goalName {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.daysRemaining {
+  font-size: var(--font-size-sm);
+  color: var(--info-color);
+  background: rgba(59, 130, 246, 0.1);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+}
+
+.daysRemaining.overdue {
+  color: var(--error-color);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.progressSection {
+  margin-bottom: var(--spacing-md);
+}
+
+.progressInfo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.current {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.target {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.progressContainer {
+  height: 12px;
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xs);
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--success-color) 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
+.progressPercent {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.remaining {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.addSection {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.addInput {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: var(--background-secondary);
+  color: var(--text-color);
+}
+
+.addInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.addAmountButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--success-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.addAmountButton:hover {
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-light);
+}
+
+.editButton,
+.deleteButton {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: var(--transition-base);
+}
+
+.editButton {
+  background: var(--info-color);
+  color: white;
+}
+
+.deleteButton {
+  background: var(--error-color);
+  color: white;
+}
+
+.editButton:hover,
+.deleteButton:hover {
+  opacity: 0.9;
+}
+
+.empty {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  color: var(--text-muted);
+  grid-column: 1 / -1;
+}
+
+.empty p {
+  margin: var(--spacing-sm) 0;
+}
+
+.empty p:first-child {
+  font-size: var(--font-size-xl);
+}
+
+@media (max-width: 768px) {
+  .goalsList {
+    grid-template-columns: 1fr;
+  }
+  
+  .goalHeader {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
