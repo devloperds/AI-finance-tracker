@@ -38,11 +38,12 @@
   gap: var(--spacing-xs);
   padding: 0 var(--spacing-lg);
   overflow-x: auto;
+  flex-wrap: wrap;
 }
 
 .navLink {
-  padding: var(--spacing-md) var(--spacing-lg);
-  font-size: var(--font-size-base);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--text-color-secondary);
   background: transparent;
@@ -63,6 +64,83 @@
   border-bottom-color: var(--primary-color);
 }
 
+/* Nav Actions (Theme Toggle, Export) */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-top: 1px solid var(--border-light);
+}
+
+.themeToggle {
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.themeToggle:hover {
+  background: var(--background-secondary);
+  border-color: var(--primary-color);
+}
+
+.exportDropdown {
+  position: relative;
+}
+
+.exportButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-color);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.exportButton:hover {
+  background: var(--background-secondary);
+  border-color: var(--primary-color);
+}
+
+.exportMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-xs);
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  z-index: 100;
+  min-width: 140px;
+}
+
+.exportMenu button {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.exportMenu button:hover {
+  background: var(--background-secondary);
+  color: var(--primary-color);
+}
+
 @media (max-width: 768px) {
   .nav {
     position: static;
@@ -81,8 +159,13 @@
   }
 
   .navLink {
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .navActions {
+    padding: var(--spacing-xs) var(--spacing-md);
+    flex-wrap: wrap;
   }
 }
 
