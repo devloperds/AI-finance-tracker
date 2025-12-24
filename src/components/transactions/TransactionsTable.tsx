@@ -33,6 +33,7 @@ const TransactionsTable = ({ onEdit }: Props) => {
   const [subCategoryId, setSubCategoryId] = useState<string>("");
   const [accountSubType, setAccountSubType] = useState<string>("");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const parentCategoryOptions = useMemo(() => {
     if (filters.type === undefined) {
@@ -54,12 +55,6 @@ const TransactionsTable = ({ onEdit }: Props) => {
     return Array.from(set).sort();
   }, [accounts]);
 
-  const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to delete this transaction?")) {
-      deleteTransaction(id);
-    }
-  };
-
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -80,7 +75,7 @@ const TransactionsTable = ({ onEdit }: Props) => {
 
   const getCategoryParts = (categoryId: string): { category: string; subcategory: string } => {
     const cat = getCategoryById(categoryId);
-    if (!cat) return { category: "Unknown", subcategory: "" };
+    if (cat === undefined) return { category: "Unknown", subcategory: "" };
     if (cat.parentId !== undefined && cat.parentId !== "") {
       const parent = getCategoryById(cat.parentId);
       return { category: parent?.name ?? "", subcategory: cat.name };
@@ -88,9 +83,42 @@ const TransactionsTable = ({ onEdit }: Props) => {
     return { category: cat.name, subcategory: "" };
   };
 
+  // Search functionality
+  const searchFilteredTransactions = useMemo(() => {
+    if (searchQuery.trim() === "") return transactions;
+
+    const query = searchQuery.toLowerCase().trim();
+    return transactions.filter((t) => {
+      // Search in description
+      if (t.description.toLowerCase().includes(query)) return true;
+      // Search in amount
+      if (t.amount.toString().includes(query)) return true;
+      // Search in category
+      const cat = getCategoryById(t.category);
+      const catName = cat?.name ?? "";
+      if (catName.toLowerCase().includes(query)) return true;
+      // Search in account name
+      const acc = accounts.find((a) => a.id === t.accountId);
+      const accName = acc?.name ?? "";
+      if (accName.toLowerCase().includes(query)) return true;
+      // Search in type
+      if (t.type.toLowerCase().includes(query)) return true;
+      // Search in date
+      if (t.date.includes(query)) return true;
+
+      return false;
+    });
+  }, [transactions, searchQuery, getCategoryById, accounts]);
+
+  const handleDelete = (id: string) => {
+    if (confirm("Are you sure you want to delete this transaction?")) {
+      deleteTransaction(id);
+    }
+  };
+
   const getInstitutionName = (accountId: string) => {
     const acc = accounts.find((a) => a.id === accountId);
-    if (!acc) return "Unknown";
+    if (acc === undefined) return "Unknown";
     const inst = getInstitutionById(acc.institutionId);
     return inst?.name ?? "Unknown";
   };
@@ -123,14 +151,42 @@ const TransactionsTable = ({ onEdit }: Props) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>Transactions</h2>
-        <button
-          className={styles.filterToggle}
-          onClick={() => setShowFilters(!showFilters)}
-          type="button"
-        >
-          {showFilters ? "Hide" : "Show"} Filters
-        </button>
+        <div className={styles.headerActions}>
+          <div className={styles.searchBox}>
+            <span className={styles.searchIcon}>🔍</span>
+            <input
+              type="text"
+              placeholder="Search transactions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={styles.searchInput}
+            />
+            {searchQuery && (
+              <button
+                className={styles.clearSearch}
+                onClick={() => setSearchQuery("")}
+                type="button"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <button
+            className={styles.filterToggle}
+            onClick={() => setShowFilters(!showFilters)}
+            type="button"
+          >
+            {showFilters ? "Hide" : "Show"} Filters
+          </button>
+        </div>
       </div>
+
+      {searchQuery && (
+        <div className={styles.searchInfo}>
+          Found {searchFilteredTransactions.length} transaction
+          {searchFilteredTransactions.length !== 1 ? "s" : ""} matching "{searchQuery}"
+        </div>
+      )}
 
       {showFilters && (
         <div className={styles.filters}>
@@ -285,9 +341,13 @@ const TransactionsTable = ({ onEdit }: Props) => {
         </div>
       )}
 
-      {transactions.length === 0 ? (
+      {searchFilteredTransactions.length === 0 ? (
         <div className={styles.empty}>
-          <p>No transactions found. Add your first transaction to get started!</p>
+          <p>
+            {searchQuery
+              ? `No transactions matching "${searchQuery}"`
+              : "No transactions found. Add your first transaction to get started!"}
+          </p>
         </div>
       ) : (
         <div className={styles.tableWrapper}>
@@ -312,7 +372,7 @@ const TransactionsTable = ({ onEdit }: Props) => {
             </thead>
             <tbody>
               {getSortedTransactions(
-                transactions
+                searchFilteredTransactions
                   .filter((transaction) => {
                     if (subCategoryId !== "") {
                       return transaction.category === subCategoryId;
